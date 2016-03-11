@@ -1,0 +1,264 @@
+#!/bin/bash
+
+gita="https://github.com/ki-project/ki_core"
+gitb="https://github.com/ki-project/memory-tools"
+gitc="https://github.com/ki-project/consciousness-module"
+gitd=""
+gite=""
+gitf=""
+gitg=""
+gith=""
+giti=""
+
+gfa="ki_core"
+gfb="memory-tools"
+gfc="consciousness-module"
+gfd=""
+gfe=""
+gff=""
+gfg=""
+gfh=""
+gfi=""
+
+
+wdwa="http://ki-project.github.io/files/~pyscripts/build.py"
+wdwb="http://ki-project.github.io/files/~pyscripts/install.py"
+wdwc="http://ki-project.github.io/files/~pyscripts/setup.py"
+wdwd="http://ki-project.github.io/files/~pyassets/assetDownloader.py"
+wdwe="http://ki-project.github.io/files/~pyassets/assetBuilder.py"
+wdwf="http://ki-project.github.io/files/~pyassets/assetInstaller.py"
+wdwg=""
+wdwh=""
+wdwi=""
+
+repoversions="http://ki-project.github.io/repo_tool/releases/"
+newversion="1.0a"
+filename="repo_1.0a.tar.gz"
+
+#--------------------------------------#
+#not used at the moment... comes with an later version
+repoupdate="http://ki-project.github.io/repo_tool/repopkg.zip"
+updaterEngine="diff"
+#--------------------------------------#
+
+wgetparams="" #wget	blah.blah/blah 
+gaddparams="" #git add *
+gcmtparams="" #git commit -m "blah"
+gcamparams="--amend" #git commit -m "blah" --amend
+gpusparams="" #git push -u origin master
+
+function info {
+	echo "[INFO] $1"
+}
+
+function warning {
+	echo "[WARN] $1"
+}
+
+function error {
+	echo "[ERROR] $1"
+}
+
+function cmd {
+    echo $1
+    $1
+    if [ $? -ne 0 ]
+    then
+    error "$1 failed"
+    else
+    info "$1 succeeded"
+    fi
+}
+
+function help {
+	echo repo tool v0.1
+    echo 
+    echo repo init - Fetches the repositories
+    echo repo stash - Stashes all changes
+    echo repo push - Pushes changes into the web (GitHub Account with access to organisation repositories)
+    echo repo help - shows this help
+    echo repo update - Downloads the new version of repo
+}
+
+function fetchGit {
+	if [ $1 -ne "" ]; then
+    	cmd "git clone $1"
+    else
+        warning "Attempted to fetch repository but link was empty."
+    fi
+}
+
+function fetchGits {
+	if [ $gita -ne "" ]; then
+    	fetchGit $gita
+    else
+    	error "Git A is an empty Link; failed to fetch core code"
+    fi
+    if [ $gitb -ne "" ]; then
+    	fetchGit $gitb
+    else
+    	warn "Git B is an empty Link; failed to fetch memory-tools code"
+    fi
+	if [ $gitc -ne "" ]; then
+    	fetchGit $gitc
+    else
+    	warn "Git C is an empty Link; failed to fetch consciousness-module code"
+    fi
+	if [ $gitd -ne "" ]; then
+    	fetchGit $gitd
+    else
+    	info "Git D is an empty Link; failed to fetch"
+    fi
+	if [ $gite -ne "" ]; then
+    	fetchGit $gite
+    else
+    	info "Git E is an empty Link; failed to fetch"
+    fi
+	if [ $gitf -ne "" ]; then
+    	fetchGit $gitf
+    else
+    	info "Git F is an empty Link; failed to fetch"
+    fi
+	if [ $gitg -ne "" ]; then
+    	fetchGit $gitg
+    else
+    	info "Git G is an empty Link; failed to fetch"
+    fi
+	if [ $gith -ne "" ]; then
+    	fetchGit $gith
+    else
+    	info "Git H is an empty Link; failed to fetch"
+    fi
+	if [ $giti -ne "" ]; then
+    	fetchGit $giti
+    else
+    	info "Git I is an empty Link; failed to fetch"
+    fi
+    if [ ! $gita && ! $gitb && ! $gitc && ! $gitd && ! $gite && ! $gitf && ! $gitg && ! $gith && ! $giti ]; then
+    	error "No valid git link is present... exiting"
+        exit 3
+	fi
+}
+
+function fetchWget {
+	if [ $1 -ne "" ]; then
+    	cmd "wget $1 $wgetparams"
+    else
+        warning "Attempted to fetch repository but link was empty."
+    fi
+}
+
+function fetchWgets {
+	if [ $wdwa -ne "" ]; then
+    	fetchWget $wdwa
+    else
+    	error "WGet A is an empty Link; failed to fetch build script."
+    fi
+    if [ $wdwb -ne "" ]; then
+    	fetchWget $wdwb
+    else
+    	error "WGet B is an empty Link; failed to fetch install script."
+    fi
+	if [ $wdwc -ne "" ]; then
+    	fetchWget $wdwc
+    else
+    	warn "WGet C is an empty Link; failed to fetch setup script."
+    fi
+	if [ $wdwd -ne "" ]; then
+    	fetchWget $wdwd
+    else
+    	info "WGet D is an empty Link; failed to fetch Asset Downloader script."
+    fi
+	if [ $wdwe -ne "" ]; then
+    	fetchWget $wdwe
+    else
+    	info "WGet E is an empty Link; failed to fetch Asset Builder script."
+    fi
+	if [ $wdwf -ne "" ]; then
+    	fetchWget $wdwf
+    else
+    	info "WGet F is an empty Link; failed to fetch Asset Installer script"
+    fi
+	if [ $wdwg -ne "" ]; then
+    	fetchWget $wdwg
+    else
+    	info "WGet G is an empty Link; failed to fetch"
+    fi
+	if [ $wdwh -ne "" ]; then
+    	fetchWGet $wdwh
+    else
+    	info "WGet H is an empty Link; failed to fetch"
+    fi
+	if [ $wdwi -ne "" ]; then
+    	fetchWGet $wdwi
+    else
+    	info "WGet I is an empty Link; failed to fetch"
+    fi
+    if [ ! $wdwa && ! $wdwb && ! $wdwc && ! $wdwd && ! $wdwe && ! $wdwf && ! $wdwg && ! $wdwh && ! $wdwi ]; then
+    	error "No valid WGet link is present... exiting"
+        exit 3
+	fi
+}
+
+function update {
+	info "Downloading repo Version $newversion"
+	cmd "wget $repoversions$filename"
+    info "Uncompressing repo Version $newversion"
+    cmd "tar -xvzf $filename"
+    info "Installing repo Version $newversion"
+    cmd "./repoUpdate/updRepo.sh"
+    exit 2
+}
+    
+
+function installgit {
+	#Usage: installgit [Repo x] [to folder y]
+    if [ $1 -ne "" && $2 -ne "" ]; then
+    	cmd "mv $1 $2"
+    else
+    	error "Wrong Usage of installgit."
+    fi
+}
+
+function downloadAll {
+	fetchGits
+    fetchWGets
+    installgit ki_core/ ai_core/
+    installgit memory-tools/ ai_memory/
+    installgit consciousness-module/ ai_consciousness
+}
+
+function stash {
+	cmd "rm -rf ai_core/"
+    cmd "rm -rf ai_memory/"
+    cmd "rm -rf ai_consciousness/"
+    cmd "rm *.py"
+    downloadAll
+}
+
+if [ ! $1 ]; then
+help
+fi
+
+if [ $1 = "init" ]; then
+downloadAll
+fi
+
+if [ $1 = "stash" ]; then
+stash
+fi
+
+if [ $1 = "help" ]; then
+help
+fi
+
+if [ $1 = "update" ]; then
+update
+fi
+
+if [ $1 = "push" ]; then
+error "Not implemented at the moment!"
+fi
+
+error "Wrong Command!"
+help
