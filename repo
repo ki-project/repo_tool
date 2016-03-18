@@ -3,8 +3,8 @@
 gita="https://github.com/ki-project/ki_core"
 gitb="https://github.com/ki-project/memory-tools"
 gitc="https://github.com/ki-project/consciousness-module"
-gitd=""
-gite=""
+gitd="https://github.com/ki-project/ki_os"
+gite="https://github.com/ki-project/ki_build_prerequisites"
 gitf=""
 gitg=""
 gith=""
@@ -13,8 +13,8 @@ giti=""
 gfa="ki_core"
 gfb="memory-tools"
 gfc="consciousness-module"
-gfd=""
-gfe=""
+gfd="ki_os"
+gfe="ki_build_prerequisites"
 gff=""
 gfg=""
 gfh=""
@@ -68,6 +68,13 @@ function cmd {
     else
     info "$1 succeeded"
     fi
+}
+
+function pushGit {
+	cmd "cd $gfa"
+	cmd "git add * $gaddparams"
+	echo git commit -m "<STDIN>"
+	git commit -m 
 }
 
 function help {
@@ -209,7 +216,6 @@ function update {
     cmd "./repoUpdate/updRepo.sh"
     exit 2
 }
-    
 
 function installgit {
 	#Usage: installgit [Repo x] [to folder y]
@@ -221,7 +227,7 @@ function installgit {
 }
 
 function downloadAll {
-	fetchGits
+    fetchGits
     fetchWGets
     installgit ki_core/ ai_core/
     installgit memory-tools/ ai_memory/
@@ -229,7 +235,7 @@ function downloadAll {
 }
 
 function stash {
-	cmd "rm -rf ai_core/"
+    cmd "rm -rf ai_core/"
     cmd "rm -rf ai_memory/"
     cmd "rm -rf ai_consciousness/"
     cmd "rm *.py"
